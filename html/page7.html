@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="jquery-3.6.0.min.js"></script>
+  <title>Изменение времени сохранения в базу данных (в секундах)</title>
+     <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+<h1>Изменение времени сохранения в базу данных (в секундах)</h1>
+    <form>
+        <label for="input1">Введите количество секунд, через которые будут сохраняться данные в БД:</label>
+        <input type="text" id="input1" name="input1"><br><br>
+		
+        <input type="submit" value="Отправить" onclick="submitForm(event)">
+    </form>
+    <script>
+		var err = 0;
+		    $.ajax({
+  type: 'GET',
+  url: 'http://localhost:8080/database',
+  success: function(data) {
+document.getElementById("input1").value = data;
+    // Здесь можно добавить код для обработки ошибки
+  },
+ error: function(data) {
+    alert(data) // Передаем xhr.responseText в качестве аргумента функции alert()
+    // Здесь можно добавить код для обработки ошибки
+  }
+});
+
+        function submitForm(event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+            var input1Value = document.getElementById("input1").value;
+
+            // Отправка данных на сервер
+            sendDataToServer("http://localhost:8080/database?time="+input1Value,1);
+        }
+
+        function sendDataToServer(url,i) {
+            // Используйте здесь соответствующий код для отправки данных на сервер (например, AJAX или Fetch API)
+            // В данном примере используется Fetch API
+            fetch(url, {
+                method: "POST"
+            })
+            .then(response => {
+                if (response.ok) {
+                    if (i===1){
+						alert("Данные успешно отправлены");
+					}
+                } else {
+				err=1
+                    alert("400 Bad Request")
+                }
+            })
+            .catch(error => {
+               err=1
+            });
+        }
+    </script>
+</body>
+</html>

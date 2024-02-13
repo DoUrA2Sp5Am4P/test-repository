@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактирование вермени выполнения операций (в секундах)</title>
+	  <script src="jquery-3.6.0.min.js"></script>
+	   <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+<h1>Редактирование вермени выполнения операций (в секундах)</h1>
+    <form>
+        <label for="input1">Сложение:</label>
+        <input type="text" id="input1" name="input1"><br><br>
+
+        <label for="input2">Вычитание:</label>
+        <input type="text" id="input2" name="input2"><br><br>
+
+        <label for="input3">Умножение:</label>
+        <input type="text" id="input3" name="input3"><br><br>
+
+        <label for="input4">Деление:</label>
+        <input type="text" id="input4" name="input4"><br><br>
+
+        <input type="submit" value="Отправить" onclick="submitForm(event)">
+    </form>
+
+    <script>
+		var err = 0;
+		       fetch("http://localhost:8080/operations")
+            .then(response => response.json())
+            .then(data => {
+			console.log(data)
+                document.getElementById("input1").value = data[0].execution_time;
+                document.getElementById("input2").value = data[1].execution_time;
+                document.getElementById("input3").value = data[2].execution_time;
+                document.getElementById("input4").value = data[3].execution_time;
+            })
+            .catch(error => {
+                alert("Произошла ошибка при загрузке данных:", error);
+            });
+        function submitForm(event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+            var input1Value = document.getElementById("input1").value;
+            var input2Value = document.getElementById("input2").value;
+            var input3Value = document.getElementById("input3").value;
+            var input4Value = document.getElementById("input4").value;
+
+            // Отправка данных на сервер
+            sendDataToServer("http://localhost:8080/operations/addition?time="+input1Value,0);
+			if (err !=1) {
+            sendDataToServer("http://localhost:8080/operations/subtraction?time="+input2Value,0);
+			if (err!=1){
+            sendDataToServer("http://localhost:8080/operations/multiplication?time="+input3Value,0);
+			if (err!=1){
+            sendDataToServer("http://localhost:8080/operations/division?time="+input4Value,1);
+			}
+			}
+			}
+        }
+
+        function sendDataToServer(url,i) {
+            // Используйте здесь соответствующий код для отправки данных на сервер (например, AJAX или Fetch API)
+            // В данном примере используется Fetch API
+            fetch(url, {
+                method: "POST"
+            })
+            .then(response => {
+                if (response.ok) {
+                    if (i===1){
+						alert("Данные успешно отправлены");
+					}
+                } else {
+				err=1
+                    alert("400 Bad Request")
+                }
+            })
+            .catch(error => {
+               err=1
+            });
+        }
+    </script>
+</body>
+</html>

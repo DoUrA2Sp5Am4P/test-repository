@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Результаты вычисления выражения по id</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+  <script src="jquery-3.6.0.min.js"></script>
+     <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+<h1>Результаты вычисления выражения по id</h1>
+  <form id="myForm">
+    <label for="textInput">Введите id:</label>
+    <input type="text" id="textInput" name="text">
+    <input type="submit" value="Отправить">
+  </form>
+
+ 
+  <script>
+  function createTable(response) {
+  // Преобразуйте объект ответа в массив строк таблицы
+  const tableRows = [
+    ["ID", response.id],
+    ["Value", response.value],
+  ];
+
+  // Создайте таблицу с заголовком и строками
+  const table = document.createElement("table");
+  const tableHead = document.createElement("thead");
+  const tableBody = document.createElement("tbody");
+
+  // Создайте заголовок таблицы
+  const tableHeaderRow = document.createElement("tr");
+  const tableHeaderCells = ["Ключ", "Значение"];
+  tableHeaderCells.forEach((cell) => {
+    const th = document.createElement("th");
+    th.textContent = cell;
+    tableHeaderRow.appendChild(th);
+  });
+  tableHead.appendChild(tableHeaderRow);
+
+  // Создайте строки таблицы
+  tableRows.forEach((row) => {
+    const tableRow = document.createElement("tr");
+    const tableDataCells = row;
+    tableDataCells.forEach((cell) => {
+      const td = document.createElement("td");
+      td.textContent = cell;
+      tableRow.appendChild(td);
+    });
+    tableBody.appendChild(tableRow);
+  });
+
+  // Добавьте заголовок и строки в таблицу
+  table.appendChild(tableHead);
+  table.appendChild(tableBody);
+
+  // Верните таблицу
+  return table;
+}
+
+   $(document).ready(function() {
+      $('#myForm').submit(function(event) {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+  var text = $('#textInput').val();
+$.ajax({
+    url: "http://127.0.0.1:8080/results/"+text,
+    type: 'GET',
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Content-Type", 'application/json;charset=UTF-8');
+    },
+    dataType: 'json',
+    success: function(response){
+	const table = createTable(response);
+
+// Добавьте таблицу в DOM
+document.body.appendChild(table);
+	},
+    error: function(response){
+        alert("Выражение не найдено")
+    }
+});
+})
+})
+</script>
+  </script>
+</body>
+</html>

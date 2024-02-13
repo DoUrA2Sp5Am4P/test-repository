@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Результаты вычислений</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+  <script src="jquery-3.6.0.min.js"></script>
+     <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+<h1>Результаты вычислений</h1>
+
+  <table id="results">
+    <thead>
+      <tr>
+        <th>id</th>
+<th>value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <script>
+$.ajax({
+    url: 'http://127.0.0.1:8080/results',
+    type: 'GET',
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Content-Type", 'application/json;charset=UTF-8');
+    },
+    dataType: 'json',
+    success: function(response){
+const tableBody = document.getElementById("results").getElementsByTagName("tbody")[0];
+
+    response.forEach((result) => {
+      const row = document.createElement("tr");
+
+      const idCell = document.createElement("td");
+      idCell.textContent = result.id;
+      row.appendChild(idCell);
+
+      const expressionCell = document.createElement("td");
+      expressionCell.textContent = result.value;
+      row.appendChild(expressionCell);
+
+      tableBody.appendChild(row);
+    });
+    },
+    error: function(response){
+        console.log(response)
+    }
+});
+</script>
+  </script>
+</body>
+</html>

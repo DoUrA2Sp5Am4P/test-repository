@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Статус всех выражений</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+  <script src="jquery-3.6.0.min.js"></script>
+   <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+<h1>Статус всех выражений</h1>
+
+  <table id="results">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>expression</th>
+        <th>status</th>
+        <th>created_at</th>
+        <th>completed_at</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <script>
+$.ajax({
+    url: 'http://127.0.0.1:8080/expressions',
+    type: 'GET',
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Content-Type", 'application/json;charset=UTF-8');
+    },
+    dataType: 'json',
+    success: function(response){
+const tableBody = document.getElementById("results").getElementsByTagName("tbody")[0];
+
+    response.forEach((result) => {
+      const row = document.createElement("tr");
+
+      const idCell = document.createElement("td");
+      idCell.textContent = result.id;
+      row.appendChild(idCell);
+
+      const expressionCell = document.createElement("td");
+      expressionCell.textContent = result.expression;
+      row.appendChild(expressionCell);
+
+      const statusCell = document.createElement("td");
+      statusCell.textContent = result.status;
+      row.appendChild(statusCell);
+
+      const createdAtCell = document.createElement("td");
+      createdAtCell.textContent = result.created_at;
+      row.appendChild(createdAtCell);
+
+      const completedAtCell = document.createElement("td");
+      completedAtCell.textContent = result.completed_at;
+      row.appendChild(completedAtCell);
+
+      tableBody.appendChild(row);
+    });
+    },
+    error: function(response){
+        console.log(response)
+    }
+});
+</script>
+  </script>
+</body>
+</html>

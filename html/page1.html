@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Отправка выражения для вычисления</title>
+  <script src="jquery-3.6.0.min.js"></script>
+   <script> 
+    $(function(){
+      $("#includedContent").load("list.html"); 
+    });
+    </script> 
+</head>
+<body>
+ <div id="includedContent"></div>
+  <h1>Отправка выражения для вычисления</h1>
+  <form id="myForm">
+    <label for="textInput">Введите выражение (разрешённые операции +,-,*,/ и скобки:</label>
+    <input type="text" id="textInput" name="text">
+    <input type="submit" value="Отправить">
+  </form>
+
+  <script>
+    $(document).ready(function() {
+      $('#myForm').submit(function(event) {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+
+        var text = $('#textInput').val(); // Получаем значение введенного текста
+
+$.ajax({
+  type: 'POST',
+  url: 'http://localhost:8080/expressions?expression='+text,
+  success: function(data) {
+    alert("id "+data); // Передаем xhr.responseText в качестве аргумента функции alert()
+    // Здесь можно добавить код для обработки ошибки
+  },
+ error: function(data) {
+    alert(data) // Передаем xhr.responseText в качестве аргумента функции alert()
+    // Здесь можно добавить код для обработки ошибки
+  }
+});
+      });
+    });
+  </script>
+</body>
+</html>

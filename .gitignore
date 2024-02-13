@@ -1,0 +1,6 @@
+*.exe
+expressions/
+expressions_with_result/
+operations/
+sleep/
+tasks/
