@@ -21,20 +21,18 @@
   <script>
     $(document).ready(function() {
       $('#myForm').submit(function(event) {
-        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        event.preventDefault();
 
-        var text = $('#textInput').val(); // Получаем значение введенного текста
+        var text = $('#textInput').val();
 
 $.ajax({
   type: 'POST',
   url: 'http://localhost:8080/expressions?expression='+text,
   success: function(data) {
-    alert("id "+data); // Передаем xhr.responseText в качестве аргумента функции alert()
-    // Здесь можно добавить код для обработки ошибки
+    alert("id "+data);
   },
  error: function(data) {
-    alert(data) // Передаем xhr.responseText в качестве аргумента функции alert()
-    // Здесь можно добавить код для обработки ошибки
+    alert(data)
   }
 });
       });

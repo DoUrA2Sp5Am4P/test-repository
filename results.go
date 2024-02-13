@@ -39,7 +39,6 @@ func processResult(w http.ResponseWriter, r *http.Request) {
 		if expression.ID == result.ID {
 			expressions[i].Status = "Completed"
 			expressions[i].CompletedAt = time.Now()
-			// Handle the result as needed
 			InfoLogger.Printf("Expression ID: %s, Value: %s\n", result.ID, result.Result)
 			break
 		}

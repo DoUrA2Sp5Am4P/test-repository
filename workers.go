@@ -29,7 +29,7 @@ func getWorkers(w http.ResponseWriter, r *http.Request) {
 	InfoLogger.Println("get workers info OK")
 }
 
-var serverURL = "http://localhost:8080" // Адрес сервера оркестратора
+var serverURL = "http://localhost:8080"
 
 func start() {
 	concurrency := getConcurrency()

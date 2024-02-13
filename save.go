@@ -42,7 +42,6 @@ func saveSleep() {
 	}
 }
 
-// expressions
 func saveExpressions() {
 	a, _ := exists("expressions")
 	if !a {

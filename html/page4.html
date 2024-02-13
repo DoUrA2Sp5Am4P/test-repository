@@ -43,14 +43,12 @@
                 alert("Произошла ошибка при загрузке данных:", error);
             });
         function submitForm(event) {
-            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+            event.preventDefault();
 
             var input1Value = document.getElementById("input1").value;
             var input2Value = document.getElementById("input2").value;
             var input3Value = document.getElementById("input3").value;
             var input4Value = document.getElementById("input4").value;
-
-            // Отправка данных на сервер
             sendDataToServer("http://localhost:8080/operations/addition?time="+input1Value,0);
 			if (err !=1) {
             sendDataToServer("http://localhost:8080/operations/subtraction?time="+input2Value,0);
@@ -64,8 +62,6 @@
         }
 
         function sendDataToServer(url,i) {
-            // Используйте здесь соответствующий код для отправки данных на сервер (например, AJAX или Fetch API)
-            // В данном примере используется Fetch API
             fetch(url, {
                 method: "POST"
             })

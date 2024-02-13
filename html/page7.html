@@ -25,26 +25,21 @@
   url: 'http://localhost:8080/database',
   success: function(data) {
 document.getElementById("input1").value = data;
-    // Здесь можно добавить код для обработки ошибки
   },
  error: function(data) {
-    alert(data) // Передаем xhr.responseText в качестве аргумента функции alert()
-    // Здесь можно добавить код для обработки ошибки
+    alert(data)
   }
 });
 
         function submitForm(event) {
-            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+            event.preventDefault();
 
             var input1Value = document.getElementById("input1").value;
 
-            // Отправка данных на сервер
             sendDataToServer("http://localhost:8080/database?time="+input1Value,1);
         }
 
         function sendDataToServer(url,i) {
-            // Используйте здесь соответствующий код для отправки данных на сервер (например, AJAX или Fetch API)
-            // В данном примере используется Fetch API
             fetch(url, {
                 method: "POST"
             })

@@ -33,18 +33,15 @@
  
   <script>
   function createTable(response) {
-  // Преобразуйте объект ответа в массив строк таблицы
   const tableRows = [
     ["ID", response.id],
     ["Value", response.value],
   ];
 
-  // Создайте таблицу с заголовком и строками
   const table = document.createElement("table");
   const tableHead = document.createElement("thead");
   const tableBody = document.createElement("tbody");
 
-  // Создайте заголовок таблицы
   const tableHeaderRow = document.createElement("tr");
   const tableHeaderCells = ["Ключ", "Значение"];
   tableHeaderCells.forEach((cell) => {
@@ -54,7 +51,6 @@
   });
   tableHead.appendChild(tableHeaderRow);
 
-  // Создайте строки таблицы
   tableRows.forEach((row) => {
     const tableRow = document.createElement("tr");
     const tableDataCells = row;
@@ -66,17 +62,15 @@
     tableBody.appendChild(tableRow);
   });
 
-  // Добавьте заголовок и строки в таблицу
   table.appendChild(tableHead);
   table.appendChild(tableBody);
 
-  // Верните таблицу
   return table;
 }
 
    $(document).ready(function() {
       $('#myForm').submit(function(event) {
-        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        event.preventDefault();
 
   var text = $('#textInput').val();
 $.ajax({
@@ -89,7 +83,6 @@ $.ajax({
     success: function(response){
 	const table = createTable(response);
 
-// Добавьте таблицу в DOM
 document.body.appendChild(table);
 	},
     error: function(response){
