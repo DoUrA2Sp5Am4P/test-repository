@@ -26,3 +26,10 @@ when
 воркером
 Busy
 Free
+at
+created
+name
+Changed
+какое-нибудь
+воркеров
+number
