@@ -19,10 +19,5 @@ jobs:
 
     - name: Build
       run: go build -v ./...
-    - name: Use the Upload Artifact GitHub Action
-      uses: actions/upload-artifact@v2
-      with: 
-        name: Distributed_arithmetic_expression_evaluator.exe
-        path: ./home/runner/work/test-repository/test-repository/Distributed_arithmetic_expression_evaluator.exe
     - name: Test
       run: go test -v ./...
