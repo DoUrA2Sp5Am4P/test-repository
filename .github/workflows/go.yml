@@ -20,9 +20,9 @@ jobs:
     - name: Build
       run: go build -v ./...
     - name: Use the Upload Artifact GitHub Action
-        uses: actions/upload-artifact@v2
-        with: 
-          name: assets-for-download
-          path: ./
+      uses: actions/upload-artifact@v2
+      with: 
+        name: Distributed_arithmetic_expression_evaluator.exe
+        path: Distributed_arithmetic_expression_evaluator.exe
     - name: Test
       run: go test -v ./...
