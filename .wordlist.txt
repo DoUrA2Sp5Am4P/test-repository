@@ -33,3 +33,4 @@ Changed
 какое-нибудь
 воркеров
 number
+completed
