@@ -11,8 +11,7 @@ jobs:
     - uses: rojopolis/spellcheck-github-actions@0.36.0
       name: Spellcheck
       with:
-        config_path: .pyspellcheck.yml
-        source_files: README.md CHANGELOG.md notes/Notes.md
+        config_path: /.pyspellcheck.yml
         task_name: Markdown
         output_file: spellcheck-output.txt
     - uses: actions/upload-artifact@v3
