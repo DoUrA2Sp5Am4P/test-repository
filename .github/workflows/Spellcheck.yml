@@ -1,7 +1,6 @@
 name: spellcheck
 
-on:
-  push:
+on: push
 
 jobs:
   spelling:
