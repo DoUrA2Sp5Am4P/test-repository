@@ -26,3 +26,8 @@ jobs:
     - name: Spell check
       run: |
         python -m pyspelling
+    - uses: actions/upload-artifact@v3
+      if: '!cancelled()' # Do not upload artifact if job was cancelled
+      with:
+        name: Spellcheck Output
+        path: spellcheck-output.txt
