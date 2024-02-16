@@ -23,6 +23,15 @@ jobs:
     - name: Build documents
       run: |
         # Perform any documentation building that might be required
+    - name: Checkout base code
+      uses: actions/checkout@v2
+      with:
+        path: base-code
+    - name: Checkout wiki code
+      uses: actions/checkout@v2
+      with:
+        repository: ${{github.repository}}.wiki
+        path: markdown
     - name: Spell check
       run: |
         python -m pyspelling
