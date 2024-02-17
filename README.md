@@ -5,6 +5,7 @@
 ```
 mkdir Distributed_arithmetic_expression_evaluator
 cd Distributed_arithmetic_expression_evaluator
+git init
 git pull https://github.com/DoUrA2Sp5Am4P/test-repository.git
 go build
 Запустите Distributed_arithmetic_expression_evaluator
